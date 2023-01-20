@@ -1,0 +1,39 @@
+type NameRegistered @entity(immutable: true) {
+  id: Bytes!
+  name: String! # string
+  label: Bytes! # bytes32
+  owner: Bytes! # address
+  cost: BigInt! # uint256
+  expires: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NameRenewed @entity(immutable: true) {
+  id: Bytes!
+  name: String! # string
+  label: Bytes! # bytes32
+  cost: BigInt! # uint256
+  expires: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NewPriceOracle @entity(immutable: true) {
+  id: Bytes!
+  oracle: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
