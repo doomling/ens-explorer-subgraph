@@ -1,0 +1,68 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ETHRegistrarController
+    network: mainnet
+    source:
+      address: "0x283Af0B28c62C092C9727F1Ee09c02CA627EB7F5"
+      abi: ETHRegistrarController
+      startBlock: 9380471
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NameRegistered
+        - NameRenewed
+        - NewPriceOracle
+        - OwnershipTransferred
+      abis:
+        - name: ETHRegistrarController
+          file: ETHRegistrarController/abis/ETHRegistrarController.json
+      eventHandlers:
+        - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+          handler: handleNameRegistered
+        - event: NameRenewed(string,indexed bytes32,uint256,uint256)
+          handler: handleNameRenewed
+        - event: NewPriceOracle(indexed address)
+          handler: handleNewPriceOracle
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ETHRegistrarController/ETHRegistrarController.wasm
+  - kind: ethereum
+    name: ENS721
+    network: mainnet
+    source:
+      address: "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
+      abi: ENS721
+      startBlock: 9380410
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - ControllerAdded
+        - ControllerRemoved
+        - NameMigrated
+        - Transfer
+      abis:
+        - name: ENS721
+          file: ENS721/abis/ENS721.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: ControllerAdded(indexed address)
+          handler: handleControllerAdded
+        - event: ControllerRemoved(indexed address)
+          handler: handleControllerRemoved
+        - event: NameMigrated(indexed uint256,indexed address,uint256)
+          handler: handleNameMigrated
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ENS721/ENS721.wasm

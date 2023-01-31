@@ -8,6 +8,7 @@ dataSources:
     source:
       address: "0x283Af0B28c62C092C9727F1Ee09c02CA627EB7F5"
       abi: ETHRegistrarController
+      startBlock: 9380471
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -30,3 +31,38 @@ dataSources:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/eth-registrar-controller.ts
+  - kind: ethereum
+    name: ENS721
+    network: mainnet
+    source:
+      address: "0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85"
+      abi: ENS721
+      startBlock: 9380410
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - ControllerAdded
+        - ControllerRemoved
+        - NameMigrated
+        - Transfer
+      abis:
+        - name: ENS721
+          file: ./abis/ENS721.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: ControllerAdded(indexed address)
+          handler: handleControllerAdded
+        - event: ControllerRemoved(indexed address)
+          handler: handleControllerRemoved
+        - event: NameMigrated(indexed uint256,indexed address,uint256)
+          handler: handleNameMigrated
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/ens-721.ts

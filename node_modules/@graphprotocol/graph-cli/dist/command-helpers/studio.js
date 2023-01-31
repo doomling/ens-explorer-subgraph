@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateStudioNetwork = exports.allowedStudioNetworks = void 0;
+exports.allowedStudioNetworks = ['mainnet', 'rinkeby', 'goerli', 'gnosis'];
+const validateStudioNetwork = ({ studio, product, network, }) => {
+    const isStudio = studio || product === 'subgraph-studio';
+    const isAllowedNetwork = exports.allowedStudioNetworks.includes(
+    // @ts-expect-error we're checking if the network is allowed
+    network);
+    if (isStudio && !isAllowedNetwork) {
+        throw new Error(`The Subgraph Studio only allows subgraphs for these networks: ${exports.allowedStudioNetworks.join(', ')}`);
+    }
+};
+exports.validateStudioNetwork = validateStudioNetwork;
